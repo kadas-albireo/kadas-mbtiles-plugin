@@ -8,7 +8,6 @@ import sys
 
 from . import resources
 from .kadas_gpkg_export import KadasGpkgExport
-from .kadas_gpkg_import import KadasGpkgImport
 from qgis.gui import *
 from kadas.kadasgui import *
 
@@ -66,12 +65,6 @@ class KadasGpkg(QObject):
         self.exportAction.triggered.connect(self.__exportGpkg)
         self.menu.addAction(self.exportAction)
 
-        self.importShortcut = QShortcut(QKeySequence(Qt.CTRL + Qt.Key_I, Qt.CTRL + Qt.Key_G), self.iface.mainWindow())
-        self.importShortcut.activated.connect(self.__importGpkg)
-        self.importAction = QAction(self.tr("GPKG Import"))
-        self.importAction.triggered.connect(self.__importGpkg)
-        self.menu.addAction(self.importAction)
-
         self.iface.addActionMenu(self.tr("GPKG"),
                                  QIcon(":/plugins/KADASGpkg/icons/gpkg.png"),
                                  self.menu,
@@ -83,8 +76,6 @@ class KadasGpkg(QObject):
         self.iface.removeActionMenu(self.menu, self.iface.PLUGIN_MENU, self.iface.MAPS_TAB)
         self.iface.unregisterCustomDropHandler(self.dropHandler)
 
-    def __importGpkg(self):
-        KadasGpkgImport(self.iface).run()
 
     def __exportGpkg(self):
         self.kadasGpkgExport.run()
