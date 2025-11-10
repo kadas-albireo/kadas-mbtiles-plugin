@@ -1,12 +1,12 @@
 [general]
-name=KADAS GPKG
+name=KADAS MBTiles
 qgisMinimumVersion=3.0
 qgisMaximumVersion=3.99
-description=KADAS GPKG plugin
-about=KADAS GPKG plugin.
-version=2.4
-author=Sourcepole
-email=smani@sourcepole.ch
+description=KADAS MBTiles plugin
+about=KADAS MBTiles plugin.
+version=1.0
+author=OPENGIS.ch
+email=valentin@opengis.ch
 tags=
 
 homepage=https://github.com/kadas-albireo/kadas-albireo2
