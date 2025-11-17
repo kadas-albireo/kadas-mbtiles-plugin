@@ -7,11 +7,12 @@ import os
 import sys
 
 from . import resources
-from .kadas_gpkg_export import KadasGpkgExport
+from .kadas_gpkg_export import KadasGpkgExport, KadasMBTilesExportDialog
 from qgis.gui import *
 from kadas.kadasgui import *
 
-
+from qgis.core import QgsApplication
+from qgis.analysis import QgsNativeAlgorithms
 
 
 
@@ -21,6 +22,8 @@ class KadasGpkg(QObject):
         QObject.__init__(self)
 
         self.iface = KadasPluginInterface.cast(iface)
+
+        self.KadasMBTilesExportDialog = None
 
         # initialize locale
         if QSettings().value('locale/userLocale'):
@@ -51,18 +54,31 @@ class KadasGpkg(QObject):
                                  QIcon(":/plugins/KADASGpkg/icons/gpkg.png"),
                                  self.menu,
                                  self.iface.PLUGIN_MENU,
-                                 self.iface.MAPS_TAB)
+                                 self.iface.GPS_TAB)
 
         # self.action = QAction('Go!', self.iface.mainWindow())
         # self.action.triggered.connect(lambda : print("Go!"))
         # self.iface.addToolBarIcon(self.action)
 
+        QgsApplication.instance().processingRegistry().addProvider(QgsNativeAlgorithms())
+
 
 
 
     def unload(self):
-        self.iface.removeActionMenu(self.menu, self.iface.PLUGIN_MENU, self.iface.MAPS_TAB)
+        self.iface.removeActionMenu(self.menu, self.iface.PLUGIN_MENU, self.iface.GPS_TAB)
 
 
     def __exportGpkg(self):
-        self.kadasGpkgExport.run()
+        # self.kadasGpkgExport.run()
+
+        # Check dialog already open
+        if self.KadasMBTilesExportDialog is not None:
+            return
+
+        self.KadasMBTilesExportDialog = KadasMBTilesExportDialog(self.iface.mainWindow(), self.iface)
+        self.KadasMBTilesExportDialog.exec()
+
+        #TODO do make non modal
+        self.KadasMBTilesExportDialog.finished.connect(lambda: print("Dialog closed"))
+        self.KadasMBTilesExportDialog = None

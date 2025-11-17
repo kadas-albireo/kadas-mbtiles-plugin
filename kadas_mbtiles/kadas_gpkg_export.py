@@ -18,6 +18,7 @@ from lxml import etree as ET
 
 from .kadas_gpkg_export_dialog import KadasGpkgExportDialog
 from .kadas_gpkg_export_base import KadasGpkgExportBase
+from .kadas_mbtiles_export_dialog import KadasMBTilesExportDialog
 
 class KadasGpkgExport(KadasGpkgExportBase):
 
