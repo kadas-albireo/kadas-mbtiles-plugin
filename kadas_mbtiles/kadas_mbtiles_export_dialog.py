@@ -2,9 +2,9 @@
 import os
 from pathlib import Path
 
-from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtCore import QSettings, Qt
 from qgis.PyQt.QtGui import QPixmap, QColor
-from qgis.PyQt.QtWidgets import QDialog, QFileDialog, QDialogButtonBox, QMessageBox
+from qgis.PyQt.QtWidgets import QDialog, QFileDialog, QDialogButtonBox, QMessageBox, QProgressDialog 
 from qgis.PyQt.uic import loadUiType
 
 from qgis.core import Qgis, QgsRectangle, QgsProject
@@ -181,7 +181,19 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
         print("before run")
 
+        progressDialog = QProgressDialog("Exporting to MBTiles...", "Cancel", 0, 100, self)
+        progressDialog.setWindowModality(Qt.WindowModal)
+
+        QgsApplication.setOverrideCursor(Qt.WaitCursor)
+
+        _feedback.progressChanged.connect(lambda progress : progressDialog.setValue(int(progress)))
+        progressDialog.canceled.connect(lambda : _feedback.cancel())
+
+        progressDialog.show()
         res, ok = alg.run(params, context, _feedback)
+        progressDialog.close()
+        QgsApplication.restoreOverrideCursor()
+
         print("after run")
         print("trois")
         if not ok:
