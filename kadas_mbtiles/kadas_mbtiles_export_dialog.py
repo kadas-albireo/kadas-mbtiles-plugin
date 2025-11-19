@@ -2,7 +2,7 @@
 import os
 from pathlib import Path
 
-from qgis.PyQt.QtCore import QSettings, Qt
+from qgis.PyQt.QtCore import QSettings, Qt, QFile
 from qgis.PyQt.QtGui import QPixmap, QColor
 from qgis.PyQt.QtWidgets import QDialog, QFileDialog, QDialogButtonBox, QMessageBox, QProgressDialog 
 from qgis.PyQt.uic import loadUiType
@@ -136,7 +136,6 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
             
     def accept(self):
-        print("un")
 
         alg = (
             QgsApplication.instance()
@@ -144,6 +143,20 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             .createAlgorithmById("native:tilesxyzmbtiles")
         )
         print("deux")
+
+        if (QFile.exists(self.lineEditOutputFile.text())):
+            ret = QMessageBox.question(
+                self,
+                self.tr("MBTiles already exists"),
+                self.tr(
+                    f"The file '{self.lineEditOutputFile.text()}' already exists. Do you want to overwrite it?"
+                ),
+                 QMessageBox.Cancel | QMessageBox.Yes,
+                QMessageBox.Cancel,
+            )
+            if ret != QMessageBox.Yes:
+                #Cancel export
+                return
 
         params = {
             "EXTENT": self.mExtentGroupBox.outputExtent(),
