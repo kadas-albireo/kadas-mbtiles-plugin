@@ -4,5 +4,6 @@
         <file>icons/gpkg.png</file>
         <file>icons/gpkg_import.png</file>
         <file>icons/gpkg_export.png</file>
+        <file>icons/mbtiles_export.png</file>
     </qresource>
 </RCC>

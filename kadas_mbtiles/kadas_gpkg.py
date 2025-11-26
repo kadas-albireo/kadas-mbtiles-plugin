@@ -42,19 +42,13 @@ class KadasGpkg(QObject):
 
     def initGui(self):
 
-        self.menu = QMenu()
 
         self.exportShortcut = QShortcut(QKeySequence(Qt.CTRL + Qt.Key_E, Qt.CTRL + Qt.Key_M), self.iface.mainWindow())
         self.exportShortcut.activated.connect(self.__exportGpkg)
-        self.exportAction = QAction(self.tr("GPKG Export"))
+        self.exportAction = QAction(QIcon(":/plugins/KADASGpkg/icons/mbtiles_export.png"), self.tr("Export MBTiles"))
         self.exportAction.triggered.connect(self.__exportGpkg)
-        self.menu.addAction(self.exportAction)
 
-        self.iface.addActionMenu(self.tr("MBTILES"),
-                                 QIcon(":/plugins/KADASGpkg/icons/gpkg.png"),
-                                 self.menu,
-                                 self.iface.PLUGIN_MENU,
-                                 self.iface.GPS_TAB)
+        self.iface.addAction(self.exportAction, self.iface.PLUGIN_MENU, self.iface.GPS_TAB)
 
         # self.action = QAction('Go!', self.iface.mainWindow())
         # self.action.triggered.connect(lambda : print("Go!"))
@@ -66,8 +60,7 @@ class KadasGpkg(QObject):
 
 
     def unload(self):
-        self.iface.removeActionMenu(self.menu, self.iface.PLUGIN_MENU, self.iface.GPS_TAB)
-
+        self.iface.removeAction(self.exportAction, self.iface.PLUGIN_MENU, self.iface.GPS_TAB)
 
     def __exportGpkg(self):
         # self.kadasGpkgExport.run()
