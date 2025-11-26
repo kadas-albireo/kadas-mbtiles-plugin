@@ -7,87 +7,46 @@
     <x>0</x>
     <y>0</y>
     <width>768</width>
-    <height>661</height>
+    <height>833</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GPKG Project Export</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="5" column="0">
-    <widget class="QLabel" name="labelCheckIcon">
-     <property name="minimumSize">
-      <size>
-       <width>16</width>
-       <height>16</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>2</width>
-       <height>16</height>
-      </size>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
+   <item row="2" column="0" colspan="2">
+    <widget class="QgsExtentGroupBox" name="mExtentGroupBox"/>
    </item>
-   <item row="4" column="0" colspan="2">
-    <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
-     <property name="title">
-      <string>Advanced settings</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <widget class="QLineEdit" name="lineEdit">
-      <property name="geometry">
-       <rect>
-        <x>360</x>
-        <y>50</y>
-        <width>133</width>
-        <height>20</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>51</y>
-        <width>47</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>23</y>
-        <width>211</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Background color(Optional, default to none)</string>
-      </property>
-     </widget>
-     <widget class="QgsColorButton" name="mColorButton">
-      <property name="geometry">
-       <rect>
-        <x>350</x>
-        <y>20</y>
-        <width>120</width>
-        <height>22</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
+   <item row="0" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="labelOutputFile">
+       <property name="text">
+        <string>Output file:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditOutputFile">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="buttonSelectFile">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Browse</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item row="7" column="0" colspan="2">
     <widget class="QGroupBox" name="mGroupBoxExtent">
@@ -144,6 +103,143 @@
      </layout>
     </widget>
    </item>
+   <item row="8" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
+     <property name="title">
+      <string>Advanced settings</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="9" column="2">
+       <widget class="QSpinBox" name="minZoomSpinBox">
+        <property name="maximum">
+         <number>25</number>
+        </property>
+        <property name="value">
+         <number>12</number>
+        </property>
+       </widget>
+      </item>
+      <item row="15" column="2">
+       <widget class="QSpinBox" name="metaTileSizeSpinBox">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>20</number>
+        </property>
+        <property name="value">
+         <number>4</number>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Min zoom</string>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="2">
+       <widget class="QSpinBox" name="DPISpinBox">
+        <property name="minimum">
+         <number>48</number>
+        </property>
+        <property name="maximum">
+         <number>600</number>
+        </property>
+        <property name="value">
+         <number>96</number>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>max zoom</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="2">
+       <widget class="QSpinBox" name="maxZoomSpinBox">
+        <property name="maximum">
+         <number>25</number>
+        </property>
+        <property name="value">
+         <number>12</number>
+        </property>
+       </widget>
+      </item>
+      <item row="15" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Metatile size</string>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="0">
+       <widget class="QCheckBox" name="checkBoxAntialiasing">
+        <property name="text">
+         <string>Enable antialiasing</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QgsColorButton" name="mColorButton">
+        <property name="color">
+         <color alpha="0">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="allowOpacity">
+         <bool>true</bool>
+        </property>
+        <property name="defaultColor">
+         <color alpha="0">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="showNoColor">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>DPI</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Background color(Optional, default to none)</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="6" column="0">
     <widget class="QLabel" name="labelWarnIcon">
      <property name="minimumSize">
@@ -163,56 +259,21 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QgsExtentGroupBox" name="mExtentGroupBox"/>
-   </item>
-   <item row="0" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="labelOutputFile">
-       <property name="text">
-        <string>Output file:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEditOutputFile">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="buttonSelectFile">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Browse</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="8" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="5" column="0">
+    <widget class="QLabel" name="labelCheckIcon">
+     <property name="minimumSize">
+      <size>
+       <width>16</width>
+       <height>16</height>
+      </size>
      </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     <property name="maximumSize">
+      <size>
+       <width>2</width>
+       <height>16</height>
+      </size>
      </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>The project, including embedded layers (redlining, symbols, pictures, ...), will be written to the GeoPackage.</string>
-     </property>
-     <property name="wordWrap">
+     <property name="scaledContents">
       <bool>true</bool>
      </property>
     </widget>

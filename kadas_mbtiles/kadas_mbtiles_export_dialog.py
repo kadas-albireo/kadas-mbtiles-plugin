@@ -7,6 +7,8 @@ from qgis.PyQt.QtGui import QPixmap, QColor
 from qgis.PyQt.QtWidgets import QDialog, QFileDialog, QDialogButtonBox, QMessageBox, QProgressDialog 
 from qgis.PyQt.uic import loadUiType
 
+from qgis.gui import QgsExtentWidget
+
 from qgis.core import Qgis, QgsRectangle, QgsProject
 
 from qgis.core import QgsApplication, QgsProcessingContext, QgsProcessingFeedback
@@ -28,7 +30,10 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         self.iface = iface
 
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(False)
-
+        # self.mExtentGroupBox
+        extent = QgsExtentWidget()
+        
+        self.mGroupBox.layout().addWidget( extent )
     #     self.spinBoxExportScale.setValue(int(iface.mapCanvas().mapSettings().scale()))
 
         self.buttonSelectFile.clicked.connect(self.__selectOutputFile)
@@ -64,8 +69,25 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
     #     self.labelCheckIcon.setPixmap(QPixmap(":/images/themes/default/mIconSuccess.svg"))
     #     self.labelWarnIcon.setPixmap(QPixmap(":/images/themes/default/mIconWarning.svg"))
 
-    # def outputFile(self):
-    #     return self.lineEditOutputFile.text()
+    def outputFile(self):
+        return self.lineEditOutputFile.text()
+    
+    def minZoom(self):    
+        return self.minZoomSpinBox.value()
+    
+    def maxZoom(self):    
+        return self.maxZoomSpinBox.value()
+    
+    def DPI(self):    
+        return self.DPISpinBox.value()
+    
+    def antialiasing(self):    
+        return self.checkBoxAntialiasing.value() 
+    
+    def metatileSize(self):
+        return self.metaTileSizeSpinBox.value()
+
+
 
     # def clearOutputFile(self):
     #     return self.checkBoxClear.isChecked()
@@ -144,12 +166,12 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         )
         print("deux")
 
-        if (QFile.exists(self.lineEditOutputFile.text())):
+        if (QFile.exists(self.outputFile()())):
             ret = QMessageBox.question(
                 self,
                 self.tr("MBTiles already exists"),
                 self.tr(
-                    f"The file '{self.lineEditOutputFile.text()}' already exists. Do you want to overwrite it?"
+                    f"The file '{self.outputFile()()}' already exists. Do you want to overwrite it?"
                 ),
                  QMessageBox.Cancel | QMessageBox.Yes,
                 QMessageBox.Cancel,
@@ -163,20 +185,21 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             "ZOOM_MIN": 12, #self.project_configuration.base_map_tiles_min_zoom_level,
             "ZOOM_MAX": 14, #self.project_configuration.base_map_tiles_max_zoom_level,
             "TILE_SIZE": 2,
-            "OUTPUT_FILE":  self.lineEditOutputFile.text(),
+            "OUTPUT_FILE":  self.outputFile()(),
         }
 
         params =  { 'EXTENT':self.mExtentGroupBox.outputExtent(), # '5.447916487,10.614400411,44.911718236,48.736628986 [EPSG:4326]',
-                   'ZOOM_MIN':12,
-                   'ZOOM_MAX':12,
-                   'DPI':96,
+                   'ZOOM_MIN':self.minZoom(),
+                   'ZOOM_MAX':self.maxZoom(),
+                   'DPI':self.DPI(),
                    'BACKGROUND_COLOR':QColor(0, 0, 0, 0),
-                   'ANTIALIAS':True,
-                   'TILE_FORMAT':0,
-                   'QUALITY':75,
+                   'ANTIALIAS':self.antialiasing(),
+                   'TILE_FORMAT':0, # Always  PNG - 0
+                #    'QUALITY':75,
                    'METATILESIZE':4,
-                   'OUTPUT_FILE':self.lineEditOutputFile.text(),# 'C:/Users/Valentin/Documents/out_qgis.mbtiles'
+                   'OUTPUT_FILE':self.outputFile()(),# 'C:/Users/Valentin/Documents/out_qgis.mbtiles'
                    }
+        
         
         context = QgsProcessingContext()
         context.setProject( QgsProject.instance() )
@@ -188,7 +211,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
         # The "native:tilesxyzmbtiles" would fail if a file is already existing
         try:
-            os.remove(self.lineEditOutputFile.text())
+            os.remove(self.outputFile()())
         except OSError:
             pass
 
@@ -204,8 +227,8 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
         progressDialog.show()
         res, ok = alg.run(params, context, _feedback)
-        progressDialog.close()
         QgsApplication.restoreOverrideCursor()
+        progressDialog.close()
 
         print("after run")
         print("trois")
