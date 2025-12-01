@@ -1,10 +1,15 @@
-
 import os
 from pathlib import Path
 
 from qgis.PyQt.QtCore import QSettings, Qt, QFile
 from qgis.PyQt.QtGui import QPixmap, QColor
-from qgis.PyQt.QtWidgets import QDialog, QFileDialog, QDialogButtonBox, QMessageBox, QProgressDialog 
+from qgis.PyQt.QtWidgets import (
+    QDialog,
+    QFileDialog,
+    QDialogButtonBox,
+    QMessageBox,
+    QProgressDialog,
+)
 from qgis.PyQt.uic import loadUiType
 
 from qgis.gui import QgsExtentWidget
@@ -21,6 +26,7 @@ WidgetUi, _ = loadUiType(
     os.path.join(os.path.dirname(__file__), "kadas_mbtiles_export_dialog.ui")
 )
 
+
 class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
     def __init__(self, parent, iface):
@@ -32,23 +38,24 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(False)
         # self.mExtentGroupBox
         extent = QgsExtentWidget()
-        
-        self.mGroupBox.layout().addWidget( extent )
-    #     self.spinBoxExportScale.setValue(int(iface.mapCanvas().mapSettings().scale()))
+
+        self.mGroupBox.layout().addWidget(extent)
+        #     self.spinBoxExportScale.setValue(int(iface.mapCanvas().mapSettings().scale()))
 
         self.buttonSelectFile.clicked.connect(self.__selectOutputFile)
-    #     self.checkBoxClear.toggled.connect(self.__updateLocalLayerList)
-    #     self.checkBoxExportScale.toggled.connect(self.spinBoxExportScale.setEnabled)
+        #     self.checkBoxClear.toggled.connect(self.__updateLocalLayerList)
+        #     self.checkBoxExportScale.toggled.connect(self.spinBoxExportScale.setEnabled)
 
-    #     self.mGroupBoxExtent.toggled.connect(self.__extentToggled)
-
+        #     self.mGroupBoxExtent.toggled.connect(self.__extentToggled)
 
         mapSettings = iface.mapCanvas().mapSettings()
 
-        self.mExtentGroupBox.setOutputCrs( mapSettings.destinationCrs() )
-        self.mExtentGroupBox.setCurrentExtent( mapSettings.visibleExtent(), mapSettings.destinationCrs() )
+        self.mExtentGroupBox.setOutputCrs(mapSettings.destinationCrs())
+        self.mExtentGroupBox.setCurrentExtent(
+            mapSettings.visibleExtent(), mapSettings.destinationCrs()
+        )
         self.mExtentGroupBox.setOutputExtentFromCurrent()
-        self.mExtentGroupBox.setMapCanvas( iface.mapCanvas() )
+        self.mExtentGroupBox.setMapCanvas(iface.mapCanvas())
         """
             // Use unrotated visible extent to insure output size and scale matches canvas
         QgsMapSettings ms = mMapCanvas->mapSettings();
@@ -71,23 +78,21 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
     def outputFile(self):
         return self.lineEditOutputFile.text()
-    
-    def minZoom(self):    
+
+    def minZoom(self):
         return self.minZoomSpinBox.value()
-    
-    def maxZoom(self):    
+
+    def maxZoom(self):
         return self.maxZoomSpinBox.value()
-    
-    def DPI(self):    
+
+    def DPI(self):
         return self.DPISpinBox.value()
-    
-    def antialiasing(self):    
-        return self.checkBoxAntialiasing.value() 
-    
+
+    def antialiasing(self):
+        return self.checkBoxAntialiasing.value()
+
     def metatileSize(self):
         return self.metaTileSizeSpinBox.value()
-
-
 
     # def clearOutputFile(self):
     #     return self.checkBoxClear.isChecked()
@@ -100,26 +105,33 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
     # def rasterExportScale(self):
     #     return self.spinBoxExportScale.value() if self.checkBoxExportScale.isChecked() else None
-    
+
     # def filterExtent(self):
     #     if not self.mGroupBoxExtent.isChecked():
     #         return None
-        
+
     #     return self.mRectTool.rect()
-        
+
     # def filterExtentCrs(self):
     #     if not self.mGroupBoxExtent.isChecked():
     #         return None
-        
+
     #     return self.iface.mapCanvas().mapSettings().destinationCrs()
-        
+
     # def clear(self):
     #     self.iface.mapCanvas().unsetMapTool(self.mRectTool)
     #     self.mRectTool = None
 
     def __selectOutputFile(self):
         lastDir = QSettings().value("/UI/lastImportExportDir", ".")
-        filename = QFileDialog.getSaveFileName(self, self.tr("Select MBTiles File..."), lastDir, self.tr("MBTiles files (*.mbtiles *.MBTILES)"), "", QFileDialog.DontConfirmOverwrite)[0]
+        filename = QFileDialog.getSaveFileName(
+            self,
+            self.tr("Select MBTiles File..."),
+            lastDir,
+            self.tr("MBTiles files (*.mbtiles *.MBTILES)"),
+            "",
+            QFileDialog.DontConfirmOverwrite,
+        )[0]
         if not filename:
             return
 
@@ -156,7 +168,6 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
     #         self.mLineEditXMax.setText(f"{extent.xMaximum(): {decs}f}")
     #         self.mLineEditYMax.setText(f"{extent.yMaximum(): {decs}f}")
 
-            
     def accept(self):
 
         alg = (
@@ -166,48 +177,47 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         )
         print("deux")
 
-        if (QFile.exists(self.outputFile()())):
+        if QFile.exists(self.outputFile()()):
             ret = QMessageBox.question(
                 self,
                 self.tr("MBTiles already exists"),
                 self.tr(
                     f"The file '{self.outputFile()()}' already exists. Do you want to overwrite it?"
                 ),
-                 QMessageBox.Cancel | QMessageBox.Yes,
+                QMessageBox.Cancel | QMessageBox.Yes,
                 QMessageBox.Cancel,
             )
             if ret != QMessageBox.Yes:
-                #Cancel export
+                # Cancel export
                 return
 
         params = {
             "EXTENT": self.mExtentGroupBox.outputExtent(),
-            "ZOOM_MIN": 12, #self.project_configuration.base_map_tiles_min_zoom_level,
-            "ZOOM_MAX": 14, #self.project_configuration.base_map_tiles_max_zoom_level,
+            "ZOOM_MIN": 12,  # self.project_configuration.base_map_tiles_min_zoom_level,
+            "ZOOM_MAX": 14,  # self.project_configuration.base_map_tiles_max_zoom_level,
             "TILE_SIZE": 2,
-            "OUTPUT_FILE":  self.outputFile()(),
+            "OUTPUT_FILE": self.outputFile()(),
         }
 
-        params =  { 'EXTENT':self.mExtentGroupBox.outputExtent(), # '5.447916487,10.614400411,44.911718236,48.736628986 [EPSG:4326]',
-                   'ZOOM_MIN':self.minZoom(),
-                   'ZOOM_MAX':self.maxZoom(),
-                   'DPI':self.DPI(),
-                   'BACKGROUND_COLOR':QColor(0, 0, 0, 0),
-                   'ANTIALIAS':self.antialiasing(),
-                   'TILE_FORMAT':0, # Always  PNG - 0
-                #    'QUALITY':75,
-                   'METATILESIZE':4,
-                   'OUTPUT_FILE':self.outputFile()(),# 'C:/Users/Valentin/Documents/out_qgis.mbtiles'
-                   }
-        
-        
+        params = {
+            "EXTENT": self.mExtentGroupBox.outputExtent(),  # '5.447916487,10.614400411,44.911718236,48.736628986 [EPSG:4326]',
+            "ZOOM_MIN": self.minZoom(),
+            "ZOOM_MAX": self.maxZoom(),
+            "DPI": self.DPI(),
+            "BACKGROUND_COLOR": QColor(0, 0, 0, 0),
+            "ANTIALIAS": self.antialiasing(),
+            "TILE_FORMAT": 0,  # Always  PNG - 0
+            #    'QUALITY':75,
+            "METATILESIZE": 4,
+            "OUTPUT_FILE": self.outputFile()(),  # 'C:/Users/Valentin/Documents/out_qgis.mbtiles'
+        }
+
         context = QgsProcessingContext()
-        context.setProject( QgsProject.instance() )
+        context.setProject(QgsProject.instance())
         _feedback = QgsProcessingFeedback()
         print("deux et demi")
 
         # processing.run("native:tilesxyzmbtiles", )
-
 
         # The "native:tilesxyzmbtiles" would fail if a file is already existing
         try:
@@ -217,13 +227,17 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
         print("before run")
 
-        progressDialog = QProgressDialog("Exporting to MBTiles...", "Cancel", 0, 100, self)
+        progressDialog = QProgressDialog(
+            "Exporting to MBTiles...", "Cancel", 0, 100, self
+        )
         progressDialog.setWindowModality(Qt.WindowModal)
 
         QgsApplication.setOverrideCursor(Qt.WaitCursor)
 
-        _feedback.progressChanged.connect(lambda progress : progressDialog.setValue(int(progress)))
-        progressDialog.canceled.connect(lambda : _feedback.cancel())
+        _feedback.progressChanged.connect(
+            lambda progress: progressDialog.setValue(int(progress))
+        )
+        progressDialog.canceled.connect(lambda: _feedback.cancel())
 
         progressDialog.show()
         res, ok = alg.run(params, context, _feedback)
@@ -233,12 +247,13 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         print("after run")
         print("trois")
         if not ok:
-            QMessageBox.critical (
+            QMessageBox.critical(
                 self,
                 self.tr("MBTiles Export failed"),
-                self.tr("Failed to create mbtiles file:\n") + str(_feedback.textLog()) + str(res)
-                ,
+                self.tr("Failed to create mbtiles file:\n")
+                + str(_feedback.textLog())
+                + str(res),
             )
             return False
-        
+
         super().accept()

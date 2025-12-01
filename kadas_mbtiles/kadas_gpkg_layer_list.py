@@ -6,6 +6,7 @@ from qgis.core import QgsProject, QgsMapLayer
 import os
 import re
 
+
 class KadasGpkgLayersList(QListWidget):
 
     LayerIdRole = Qt.UserRole + 1
@@ -18,11 +19,26 @@ class KadasGpkgLayersList(QListWidget):
         QListWidget.__init__(self, parent)
 
         self.layers = {}
-        local_providers = ["delimitedtext", "gdal", "gpx", "mssql", "ogr", "postgres", "spatialite", "wcs", "wms", "WFS", "arcgisfeatureserver"]
+        local_providers = [
+            "delimitedtext",
+            "gdal",
+            "gpx",
+            "mssql",
+            "ogr",
+            "postgres",
+            "spatialite",
+            "wcs",
+            "wms",
+            "WFS",
+            "arcgisfeatureserver",
+        ]
 
         for layer in QgsProject.instance().mapLayers().values():
             provider = "unknown"
-            if layer.type() == QgsMapLayer.VectorLayer or layer.type() == QgsMapLayer.RasterLayer:
+            if (
+                layer.type() == QgsMapLayer.VectorLayer
+                or layer.type() == QgsMapLayer.RasterLayer
+            ):
                 provider = layer.dataProvider().name()
             elif layer.type() == QgsMapLayer.PluginLayer:
                 provider = "plugin"
@@ -41,7 +57,7 @@ class KadasGpkgLayersList(QListWidget):
                 filename = filename[:pos]
             # Resolve file url
             if filename.startswith("file://"):
-                filename = filename[7:filename.find("?")]
+                filename = filename[7 : filename.find("?")]
             # Remove vsi prefix
             if filename.startswith("/vsi"):
                 filename = re.sub(r"/vsi\w+/", "", filename)
@@ -78,7 +94,10 @@ class KadasGpkgLayersList(QListWidget):
             layerid = item.data(KadasGpkgLayersList.LayerIdRole)
             layer = QgsProject.instance().mapLayer(layerid)
             # Disable layers already in GPKG
-            gpkgLayer = existingOutputGpkg and (layer.source().startswith(existingOutputGpkg) or layer.source().startswith("GPKG:" + existingOutputGpkg))
+            gpkgLayer = existingOutputGpkg and (
+                layer.source().startswith(existingOutputGpkg)
+                or layer.source().startswith("GPKG:" + existingOutputGpkg)
+            )
             if gpkgLayer:
                 item.setFlags(item.flags() & ~(Qt.ItemIsSelectable | Qt.ItemIsEnabled))
                 item.setIcon(QIcon(":/images/themes/default/mIconSuccess.svg"))
