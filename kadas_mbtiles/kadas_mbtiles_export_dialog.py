@@ -166,6 +166,9 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
                 + str(res),
             )
             return False
+        
+        self.iface.messageBar().pushMessage(
+            self.tr("MBTiles export completed"), "", Qgis.Info, 5)
 
         super().accept()
 
