@@ -84,4 +84,5 @@ class KadasGpkg(QObject):
 
     def __dialogFinished(self, result):
         self.KadasMBTilesExportDialog.finished.disconnect()
+        self.KadasMBTilesExportDialog.clear()
         self.KadasMBTilesExportDialog = None

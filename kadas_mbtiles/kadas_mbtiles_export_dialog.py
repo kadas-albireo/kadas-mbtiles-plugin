@@ -36,10 +36,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         self.iface = iface
 
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(False)
-        # self.mExtentGroupBox
-        extent = QgsExtentWidget()
 
-        self.mGroupBox.layout().addWidget(extent)
         #     self.spinBoxExportScale.setValue(int(iface.mapCanvas().mapSettings().scale()))
 
         self.buttonSelectFile.clicked.connect(self.__selectOutputFile)
@@ -48,26 +45,14 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
         #     self.mGroupBoxExtent.toggled.connect(self.__extentToggled)
 
-        mapSettings = iface.mapCanvas().mapSettings()
 
-        self.mExtentGroupBox.setOutputCrs(mapSettings.destinationCrs())
-        self.mExtentGroupBox.setCurrentExtent(
-            mapSettings.visibleExtent(), mapSettings.destinationCrs()
-        )
-        self.mExtentGroupBox.setOutputExtentFromCurrent()
-        self.mExtentGroupBox.setMapCanvas(iface.mapCanvas())
-        """
-            // Use unrotated visible extent to insure output size and scale matches canvas
-        QgsMapSettings ms = mMapCanvas->mapSettings();
-        ms.setRotation( 0 );
-        mExtent = ms.visibleExtent();
-        mSize = ms.outputSize();
 
-        mExtentGroupBox->setOutputCrs( ms.destinationCrs() );
-        mExtentGroupBox->setCurrentExtent( mExtent, ms.destinationCrs() );
-        mExtentGroupBox->setOutputExtentFromCurrent();
-        mExtentGroupBox->setMapCanvas( mapCanvas );
-        """
+        self.mRectTool = KadasMapToolSelectRect(iface.mapCanvas())
+        self.mRectTool.rectChanged.connect(self.__extentChanged)
+        iface.mapCanvas().setMapTool(self.mRectTool)
+
+        self.mGroupBoxExtent.toggled.connect(self.__extentToggled)
+
 
     #     self.mRectTool = KadasMapToolSelectRect(iface.mapCanvas())
     #     self.mRectTool.rectChanged.connect(self.__extentChanged)
@@ -175,7 +160,6 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             .processingRegistry()
             .createAlgorithmById("native:tilesxyzmbtiles")
         )
-        print("deux")
 
         if QFile.exists(self.outputFile()):
             ret = QMessageBox.question(
@@ -192,7 +176,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
                 return
 
         params = {
-            "EXTENT": self.mExtentGroupBox.outputExtent(),  # '5.447916487,10.614400411,44.911718236,48.736628986 [EPSG:4326]',
+            "EXTENT": self.extent(),  # '5.447916487,10.614400411,44.911718236,48.736628986 [EPSG:4326]',
             "ZOOM_MIN": self.minZoom(),
             "ZOOM_MAX": self.maxZoom(),
             "DPI": self.DPI(),
@@ -207,17 +191,13 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         context = QgsProcessingContext()
         context.setProject(QgsProject.instance())
         _feedback = QgsProcessingFeedback()
-        print("deux et demi")
 
-        # processing.run("native:tilesxyzmbtiles", )
 
         # The "native:tilesxyzmbtiles" would fail if a file is already existing
         try:
             os.remove(self.outputFile())
         except OSError:
             pass
-
-        print("before run")
 
         progressDialog = QProgressDialog(
             "Exporting to MBTiles...", "Cancel", 0, 100, self
@@ -237,8 +217,6 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         QgsApplication.restoreOverrideCursor()
         progressDialog.close()
 
-        print("after run")
-        print("trois")
         if not ok:
             QMessageBox.critical(
                 self,
@@ -250,3 +228,37 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             return False
 
         super().accept()
+
+
+    def clear(self):
+        """Clear any map tool"""
+        self.iface.mapCanvas().unsetMapTool(self.mRectTool)
+        self.mRectTool = None
+
+    def __extentChanged(self, extent):
+        if extent.isNull():
+            self.mLineEditXMin.setText("")
+            self.mLineEditYMin.setText("")
+            self.mLineEditXMax.setText("")
+            self.mLineEditYMax.setText("")
+        else:
+            decs = 0
+            if self.iface.mapCanvas().mapSettings().mapUnits() == Qgis.DistanceUnit.Degrees:
+                decs = 3
+            self.mLineEditXMin.setText(f"{extent.xMinimum(): {decs}f}")
+            self.mLineEditYMin.setText(f"{extent.yMinimum(): {decs}f}")
+            self.mLineEditXMax.setText(f"{extent.xMaximum(): {decs}f}")
+            self.mLineEditYMax.setText(f"{extent.yMaximum(): {decs}f}")
+
+    def __extentToggled(self, checked):
+        if checked:
+            self.mRectTool.setRect( self.iface.mapCanvas().extent() )
+        else:
+            self.mRectTool.clear()
+
+    def extent(self):
+        if self.mGroupBoxExtent.isChecked():
+            return self.mRectTool.rect()
+        return self.iface.mapCanvas().extent()
+
+            
