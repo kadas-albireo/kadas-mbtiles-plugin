@@ -71,7 +71,6 @@ class KadasGpkg(QObject):
         )
 
     def __exportGpkg(self):
-        # self.kadasGpkgExport.run()
 
         # Check dialog already open
         if self.KadasMBTilesExportDialog is not None:
@@ -80,8 +79,9 @@ class KadasGpkg(QObject):
         self.KadasMBTilesExportDialog = KadasMBTilesExportDialog(
             self.iface.mainWindow(), self.iface
         )
-        self.KadasMBTilesExportDialog.exec()
+        self.KadasMBTilesExportDialog.show()
+        self.KadasMBTilesExportDialog.finished.connect( self.__dialogFinished )
 
-        # TODO do make non modal
-        self.KadasMBTilesExportDialog.finished.connect(lambda: print("Dialog closed"))
+    def __dialogFinished(self, result):
+        self.KadasMBTilesExportDialog.finished.disconnect()
         self.KadasMBTilesExportDialog = None

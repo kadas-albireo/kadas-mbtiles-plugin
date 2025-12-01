@@ -89,7 +89,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         return self.DPISpinBox.value()
 
     def antialiasing(self):
-        return self.checkBoxAntialiasing.value()
+        return self.checkBoxAntialiasing.isChecked()
 
     def metatileSize(self):
         return self.metaTileSizeSpinBox.value()
@@ -177,12 +177,12 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         )
         print("deux")
 
-        if QFile.exists(self.outputFile()()):
+        if QFile.exists(self.outputFile()):
             ret = QMessageBox.question(
                 self,
                 self.tr("MBTiles already exists"),
                 self.tr(
-                    f"The file '{self.outputFile()()}' already exists. Do you want to overwrite it?"
+                    f"The file '{self.outputFile()}' already exists. Do you want to overwrite it?"
                 ),
                 QMessageBox.Cancel | QMessageBox.Yes,
                 QMessageBox.Cancel,
@@ -190,14 +190,6 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             if ret != QMessageBox.Yes:
                 # Cancel export
                 return
-
-        params = {
-            "EXTENT": self.mExtentGroupBox.outputExtent(),
-            "ZOOM_MIN": 12,  # self.project_configuration.base_map_tiles_min_zoom_level,
-            "ZOOM_MAX": 14,  # self.project_configuration.base_map_tiles_max_zoom_level,
-            "TILE_SIZE": 2,
-            "OUTPUT_FILE": self.outputFile()(),
-        }
 
         params = {
             "EXTENT": self.mExtentGroupBox.outputExtent(),  # '5.447916487,10.614400411,44.911718236,48.736628986 [EPSG:4326]',
@@ -209,7 +201,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             "TILE_FORMAT": 0,  # Always  PNG - 0
             #    'QUALITY':75,
             "METATILESIZE": 4,
-            "OUTPUT_FILE": self.outputFile()(),  # 'C:/Users/Valentin/Documents/out_qgis.mbtiles'
+            "OUTPUT_FILE": self.outputFile(),  # 'C:/Users/Valentin/Documents/out_qgis.mbtiles'
         }
 
         context = QgsProcessingContext()
@@ -221,7 +213,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
         # The "native:tilesxyzmbtiles" would fail if a file is already existing
         try:
-            os.remove(self.outputFile()())
+            os.remove(self.outputFile())
         except OSError:
             pass
 
@@ -240,6 +232,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         progressDialog.canceled.connect(lambda: _feedback.cancel())
 
         progressDialog.show()
+        progressDialog.setLabelText("Exporting to MBTiles...")
         res, ok = alg.run(params, context, _feedback)
         QgsApplication.restoreOverrideCursor()
         progressDialog.close()
