@@ -4,7 +4,7 @@
 
 Method 1) Via github
 
-Download the source code using the Github download link button. or  git clone http://github.com/camptocamp/kadas-routing-plugin.git`
+Download the source code using the Github download link button. or  git clone `https://github.com/kadas-albireo/kadas-mbtiles-plugin.git`
 
 extract the plugin folder `kadas_mbtiles`
 
@@ -17,7 +17,7 @@ then extract the zip file
 ### Install the plugin
 
 
-To install this plugin on Kadas Albireo 2, move the plugin folder from previous step, then copy the kadasrouting folder to the KADAS plugins folder located in your user folder. For example:
+To install this plugin on Kadas Albireo 2, move the plugin folder from previous step, then copy the `kadas_mbtiles` folder to the KADAS plugins folder located in your user folder. For example:
 
 C:\Users\Valentin\AppData\Roaming\Kadas\Kadas\profiles\default\python\plugins\
 
