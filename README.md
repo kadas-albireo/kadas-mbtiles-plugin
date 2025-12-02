@@ -30,8 +30,7 @@ Access le plugin in the `Navigation` ribbon under the `export to MBTile` button
 
 ## How to contribute
 
-1) Get the source ![Uploading where to find the plugin.png…]()
-code using git 
+1) Get the source code using git 
 
 `git clone https://github.com/kadas-albireo/kadas-mbtiles-plugin.git`
 
