@@ -21,10 +21,17 @@ To install this plugin on Kadas Albireo 2, move the plugin folder from previous 
 
 C:\Users\Valentin\AppData\Roaming\Kadas\Kadas\profiles\default\python\plugins\
 
+## How to use
+
+Access le plugin in the `Navigation` ribbon under the `export to MBTile` button
+
+<img width="1168" height="247" alt="where to find the plugin" src="https://github.com/user-attachments/assets/8d6e1ce9-a2c1-4159-aa5a-2fb11862b58e" />
+
 
 ## How to contribute
 
-1) Get the source code using git 
+1) Get the source ![Uploading where to find the plugin.png…]()
+code using git 
 
 `git clone https://github.com/kadas-albireo/kadas-mbtiles-plugin.git`
 
