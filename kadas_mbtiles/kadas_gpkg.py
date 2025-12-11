@@ -54,12 +54,9 @@ class KadasGpkg(QObject):
         self.exportAction.triggered.connect(self.__exportGpkg)
 
         self.iface.addAction(
-            self.exportAction, self.iface.PLUGIN_MENU, self.iface.GPS_TAB
+            self.exportAction, self.iface.PLUGIN_MENU, self.iface.MAPS_TAB
         )
 
-        # self.action = QAction('Go!', self.iface.mainWindow())
-        # self.action.triggered.connect(lambda : print("Go!"))
-        # self.iface.addToolBarIcon(self.action)
 
         QgsApplication.instance().processingRegistry().addProvider(
             QgsNativeAlgorithms()
@@ -67,7 +64,7 @@ class KadasGpkg(QObject):
 
     def unload(self):
         self.iface.removeAction(
-            self.exportAction, self.iface.PLUGIN_MENU, self.iface.GPS_TAB
+            self.exportAction, self.iface.PLUGIN_MENU, self.iface.MAPS_TAB
         )
 
     def __exportGpkg(self):
