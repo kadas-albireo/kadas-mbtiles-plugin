@@ -34,6 +34,8 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         self.setupUi(self)
 
         self.iface = iface
+        # To fit the dialog to content
+        self.resize(0,0)
 
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(False)
 
