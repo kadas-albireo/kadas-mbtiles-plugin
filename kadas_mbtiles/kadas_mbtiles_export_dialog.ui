@@ -10,60 +10,170 @@
     <height>833</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>GPKG Project Export</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="5" column="0">
-    <widget class="QLabel" name="labelWarnIcon">
-     <property name="minimumSize">
-      <size>
-       <width>16</width>
-       <height>16</height>
-      </size>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetMinimumSize</enum>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="labelOutputFile">
+       <property name="text">
+        <string>Output file:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditOutputFile">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="buttonSelectFile">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Browse</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="mGroupBoxExtent">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="maximumSize">
-      <size>
-       <width>16</width>
-       <height>16</height>
-      </size>
+     <property name="title">
+      <string>Restrict extent to export:</string>
      </property>
-     <property name="scaledContents">
-      <bool>true</bool>
+     <property name="checkable">
+      <bool>false</bool>
      </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="2" column="0">
+       <widget class="QLabel" name="mLabelYMin">
+        <property name="text">
+         <string>Y Min.:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="mlabelXMin">
+        <property name="text">
+         <string>X Min.:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLineEdit" name="mLineEditYMax">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="mLineEditXMax">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="mLabelYMax">
+        <property name="text">
+         <string>Y Max.:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="mLineEditXMin">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="4">
+       <widget class="QPushButton" name="buttonSetToCanvasExtent">
+        <property name="text">
+         <string>Set to canvas extent</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="mLineEditYMin">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="mLabelXMax">
+        <property name="text">
+         <string>X Max.:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="4">
+       <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Edit the extent rectangle on the map canvas to change this setting</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="labelCheckIcon">
-     <property name="minimumSize">
-      <size>
-       <width>16</width>
-       <height>16</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>2</width>
-       <height>16</height>
-      </size>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
+   <item>
     <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>Advanced settings</string>
      </property>
@@ -97,7 +207,7 @@
       <item row="9" column="0">
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Min zoom</string>
+         <string>Minimum zoom</string>
         </property>
        </widget>
       </item>
@@ -117,7 +227,7 @@
       <item row="10" column="0">
        <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>max zoom</string>
+         <string>Maximum zoom</string>
         </property>
        </widget>
       </item>
@@ -189,91 +299,15 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2">
-    <widget class="QGroupBox" name="mGroupBoxExtent">
-     <property name="title">
-      <string>Restrict extent to export:</string>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="checkable">
-      <bool>true</bool>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="2">
-       <widget class="QLabel" name="mLabelYMax">
-        <property name="text">
-         <string>Y Max.:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="mlabelXMin">
-        <property name="text">
-         <string>X Min.:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="mLineEditYMin"/>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="mLineEditXMin"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="mLabelYMin">
-        <property name="text">
-         <string>Y Min.:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="mLabelXMax">
-        <property name="text">
-         <string>X Max.:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QLineEdit" name="mLineEditXMax"/>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLineEdit" name="mLineEditYMax"/>
-      </item>
-     </layout>
     </widget>
-   </item>
-   <item row="0" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="labelOutputFile">
-       <property name="text">
-        <string>Output file:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEditOutputFile">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="buttonSelectFile">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Browse</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
   </layout>
  </widget>

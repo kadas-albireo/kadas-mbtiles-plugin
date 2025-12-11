@@ -43,7 +43,13 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         self.mRectTool.rectChanged.connect(self.__extentChanged)
         iface.mapCanvas().setMapTool(self.mRectTool)
 
-        self.mGroupBoxExtent.toggled.connect(self.__extentToggled)
+        #set default to current extent scaled down a bit to avoid confusion from the user perspective
+        self.mRectTool.setRect(self.iface.mapCanvas().extent().scaled(0.94))
+
+        # Manually set back the extent to the canvas extent
+        self.buttonSetToCanvasExtent.clicked.connect(
+            lambda: self.mRectTool.setRect(self.iface.mapCanvas().extent())
+        )
 
     def outputFile(self):
         return self.lineEditOutputFile.text()
@@ -187,13 +193,6 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             self.mLineEditXMax.setText(f"{extent.xMaximum(): {decs}f}")
             self.mLineEditYMax.setText(f"{extent.yMaximum(): {decs}f}")
 
-    def __extentToggled(self, checked):
-        if checked:
-            self.mRectTool.setRect(self.iface.mapCanvas().extent())
-        else:
-            self.mRectTool.clear()
 
     def extent(self):
-        if self.mGroupBoxExtent.isChecked():
-            return self.mRectTool.rect()
-        return self.iface.mapCanvas().extent()
+        return self.mRectTool.rect()
