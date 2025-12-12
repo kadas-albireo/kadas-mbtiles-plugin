@@ -7,7 +7,7 @@ import os
 import sys
 
 from . import resources
-from .kadas_gpkg_export import KadasGpkgExport, KadasMBTilesExportDialog
+from .kadas_mbtiles_export_dialog import KadasMBTilesExportDialog
 from qgis.gui import *
 from kadas.kadasgui import *
 
@@ -37,8 +37,6 @@ class KadasGpkg(QObject):
                 self.translator = QTranslator()
                 self.translator.load(locale_path)
                 QCoreApplication.installTranslator(self.translator)
-
-        self.kadasGpkgExport = KadasGpkgExport(self.iface)
 
     def initGui(self):
 
