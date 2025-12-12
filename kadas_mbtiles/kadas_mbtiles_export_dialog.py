@@ -69,6 +69,9 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
     def metatileSize(self):
         return self.metaTileSizeSpinBox.value()
+    
+    def color(self):
+        return self.mColorButton.color()
 
     def __selectOutputFile(self):
         lastDir = QSettings().value("/UI/lastImportExportDir", ".")
@@ -119,11 +122,11 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             "ZOOM_MIN": self.minZoom(),
             "ZOOM_MAX": self.maxZoom(),
             "DPI": self.DPI(),
-            "BACKGROUND_COLOR": QColor(0, 0, 0, 0),
+            "BACKGROUND_COLOR": self.color(),
             "ANTIALIAS": self.antialiasing(),
             "TILE_FORMAT": 0,  # Always  PNG - 0
             #    'QUALITY':75,
-            "METATILESIZE": 4,
+            "METATILESIZE": self.metatileSize,
             "OUTPUT_FILE": self.outputFile(),  # 'C:/Users/Valentin/Documents/out_qgis.mbtiles'
         }
 
