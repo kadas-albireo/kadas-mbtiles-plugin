@@ -55,7 +55,6 @@ class KadasMBtiles(QObject):
             self.exportAction, self.iface.PLUGIN_MENU, self.iface.MAPS_TAB
         )
 
-
         QgsApplication.instance().processingRegistry().addProvider(
             QgsNativeAlgorithms()
         )

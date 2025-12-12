@@ -34,7 +34,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
 
         self.iface = iface
         # To fit the dialog to content
-        self.resize(0,0)
+        self.resize(0, 0)
 
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(False)
 
@@ -44,7 +44,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         self.mRectTool.rectChanged.connect(self.__extentChanged)
         iface.mapCanvas().setMapTool(self.mRectTool)
 
-        #set default to current extent scaled down a bit to avoid confusion from the user perspective
+        # set default to current extent scaled down a bit to avoid confusion from the user perspective
         self.mRectTool.setRect(self.iface.mapCanvas().extent().scaled(0.94))
 
         # Manually set back the extent to the canvas extent
@@ -193,7 +193,6 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             self.mLineEditYMin.setText(f"{extent.yMinimum(): {decs}f}")
             self.mLineEditXMax.setText(f"{extent.xMaximum(): {decs}f}")
             self.mLineEditYMax.setText(f"{extent.yMaximum(): {decs}f}")
-
 
     def extent(self):
         return self.mRectTool.rect()
