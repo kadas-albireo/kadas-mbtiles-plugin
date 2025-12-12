@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>KadasGpkgExportDialog</class>
- <widget class="QDialog" name="KadasGpkgExportDialog">
+ <class>KadasMbtilesExportDialog</class>
+ <widget class="QDialog" name="KadasMbtilesExportDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>GPKG Project Export</string>
+   <string>MbTiles Project Export</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="sizeConstraint">
@@ -329,7 +329,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>KadasGpkgExportDialog</receiver>
+   <receiver>KadasMbtilesExportDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -345,7 +345,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>KadasGpkgExportDialog</receiver>
+   <receiver>KadasMbtilesExportDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

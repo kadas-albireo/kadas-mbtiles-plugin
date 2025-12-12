@@ -2,99 +2,138 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="fr">
 <context>
-    <name>KadasGpkg</name>
+    <name>KadasMBTilesExportDialog</name>
     <message>
-        <location filename="../kadas_gpkg.py" line="48"/>
+        <location filename="../kadas_mbtiles_export_dialog.py" line="75"/>
+        <source>Select MBTiles File...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.py" line="75"/>
+        <source>MBTiles files (*.mbtiles *.MBTILES)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.py" line="104"/>
+        <source>MBTiles already exists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.py" line="104"/>
+        <source>The file &apos;{self.outputFile()}&apos; already exists. Do you want to overwrite it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.py" line="159"/>
+        <source>MBTiles Export failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.py" line="159"/>
+        <source>Failed to create mbtiles file:
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.py" line="168"/>
+        <source>MBTiles export completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>KadasMBtiles</name>
+    <message>
+        <location filename="../kadas_mbtiles.py" line="48"/>
         <source>Export MBTiles</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>KadasGpkgExportDialog</name>
+    <name>KadasMbtilesExportDialog</name>
     <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="14"/>
-        <source>GPKG Project Export</source>
-        <translation>Exporter projet en GPKG</translation>
-    </message>
-    <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="22"/>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="31"/>
         <source>Output file:</source>
-        <translation>Fichier de sortie:</translation>
+        <translation type="unfinished">Fichier de sortie:</translation>
     </message>
     <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="42"/>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="51"/>
         <source>Browse</source>
-        <translation>Parcourir</translation>
+        <translation type="unfinished">Parcourir</translation>
     </message>
     <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="51"/>
-        <source>Clear existing GeoPackage before exporting</source>
-        <translation>Effacer le GeoPackage existant avant d'exporter</translation>
-    </message>
-    <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="58"/>
-        <source>The project, including embedded layers (redlining, symbols, pictures, ...), will be written to the GeoPackage.</source>
-        <translation>Le projet, incluant les couches intégrées (redlining, symboles, images, ...), sera écrit dans le GeoPackage.</translation>
-    </message>
-    <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="68"/>
-        <source>Additionally, the following layers will be added to the GeoPackage:</source>
-        <translation>De plus, les couches suivantes seront ajoutées au GeoPackage:</translation>
-    </message>
-    <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="107"/>
-        <source>&lt;small&gt;&lt;i&gt;Layers already part of the output GeoPackage are disabled.&lt;/i&gt;&lt;/small&gt;</source>
-        <translation>&lt;small&gt;&lt;i&gt;Les couches qui sont déjà dans le GeoPackage d'export sont désactivées.&lt;/i&gt;&lt;/small&gt;</translation>
-    </message>
-    <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="133"/>
-        <source>&lt;small&gt;&lt;i&gt;Layers with unknown size or larger than 50 MB are deselected by default.&lt;/i&gt;&lt;/span&gt;</source>
-        <translation>&lt;small&gt;&lt;i&gt;Les couches avec une taille inconue ou supérieures à 50 Mo sont désactivées par défaut.&lt;/i&gt;&lt;/small&gt;</translation>
-    </message>
-    <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="143"/>
-        <source>Generate pyramids (slow)</source>
-        <translation>Génération des pyramides (lent)</translation>
-    </message>
-    <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="152"/>
-        <source>Specify raster export scale:</source>
-        <translation>Spécifier l'échelle d'exportation des raster:</translation>
-    </message>
-    <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="180"/>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="66"/>
         <source>Restrict extent to export:</source>
-        <translation>Limiter l'étendue à exporter:</translation>
+        <translation type="unfinished">Limiter l'étendue à exporter:</translation>
     </message>
     <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="192"/>
-        <source>Y Max.:</source>
-        <translation>Y Max.:</translation>
-    </message>
-    <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="199"/>
-        <source>X Min.:</source>
-        <translation>X Min.:</translation>
-    </message>
-    <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="212"/>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="78"/>
         <source>Y Min.:</source>
-        <translation>Y Min.:</translation>
+        <translation type="unfinished">Y Min.:</translation>
     </message>
     <message>
-        <location filename="../kadas_gpkg_export_dialog.ui" line="219"/>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="85"/>
+        <source>X Min.:</source>
+        <translation type="unfinished">X Min.:</translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="112"/>
+        <source>Y Max.:</source>
+        <translation type="unfinished">Y Max.:</translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="129"/>
+        <source>Set to canvas extent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="146"/>
         <source>X Max.:</source>
-        <translation>X Max.:</translation>
+        <translation type="unfinished">X Max.:</translation>
     </message>
     <message>
-        <location filename="../kadas_gpkg_export_dialog.py" line="84"/>
-        <source>Select GPKG File...</source>
-        <translation type="unfinished">Choisir le fichier GPKG ...</translation>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="159"/>
+        <source>Edit the extent rectangle on the map canvas to change this setting</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../kadas_gpkg_export_dialog.py" line="84"/>
-        <source>GPKG Database (*.gpkg)</source>
-        <translation type="unfinished">Base des données GPKG (*.gpkg)</translation>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="178"/>
+        <source>Advanced settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="210"/>
+        <source>Minimum zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="230"/>
+        <source>Maximum zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="247"/>
+        <source>Metatile size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="254"/>
+        <source>Enable antialiasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="288"/>
+        <source>DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="295"/>
+        <source>Background color(Optional, default to none)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../kadas_mbtiles_export_dialog.ui" line="20"/>
+        <source>MbTiles Project Export</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -2,6 +2,6 @@
 
 
 def classFactory(iface):
-    from .kadas_gpkg import KadasGpkg
+    from .kadas_mbtiles import KadasMBtiles
 
-    return KadasGpkg(iface)
+    return KadasMBtiles(iface)

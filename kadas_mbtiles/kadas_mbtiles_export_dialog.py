@@ -19,7 +19,6 @@ from qgis.core import Qgis, QgsRectangle, QgsProject
 from qgis.core import QgsApplication, QgsProcessingContext, QgsProcessingFeedback
 from qgis.analysis import QgsNativeAlgorithms
 
-# from .kadas_gpkg_layer_list import KadasGpkgLayersList
 from kadas.kadasgui import KadasMapToolSelectRect
 
 WidgetUi, _ = loadUiType(
