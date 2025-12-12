@@ -19,7 +19,7 @@ then extract the zip file
 
 To install this plugin on Kadas Albireo 2, move the plugin folder from previous step, then copy the `kadas_mbtiles` folder to the KADAS plugins folder located in your user folder. For example:
 
-C:\Users\Valentin\AppData\Roaming\Kadas\Kadas\profiles\default\python\plugins\
+C:\Users\%appdata%\Kadas\Kadas\profiles\default\python\plugins\
 
 ## How to use
 
