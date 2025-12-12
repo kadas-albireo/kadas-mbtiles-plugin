@@ -46,7 +46,7 @@ class KadasMBtiles(QObject):
         )
         self.exportShortcut.activated.connect(self.__exportMbtiles)
         self.exportAction = QAction(
-            QIcon(":/plugins/KADASGpkg/icons/mbtiles_export.png"),
+            QIcon(":/plugins/KADASMbtiles/icons/mbtiles_export.png"),
             self.tr("Export MBTiles"),
         )
         self.exportAction.triggered.connect(self.__exportMbtiles)
