@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from qgis.PyQt.QtCore import *
-from qgis.PyQt.QtGui import *
-from qgis.PyQt.QtWidgets import *
+from qgis.PyQt.QtCore import QObject, QSettings, QCoreApplication, QTranslator, Qt
+from qgis.PyQt.QtGui import QAction, QIcon, QKeySequence
+
+from qgis.PyQt.QtWidgets import QShortcut
 import os
 
+from . import resources
 from .kadas_mbtiles_export_dialog import KadasMBTilesExportDialog
-from qgis.gui import *
-from kadas.kadasgui import *
+from kadas.kadasgui import KadasPluginInterface
 
 from qgis.core import QgsApplication
 from qgis.analysis import QgsNativeAlgorithms
