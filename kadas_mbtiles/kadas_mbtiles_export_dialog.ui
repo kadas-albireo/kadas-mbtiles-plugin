@@ -72,54 +72,10 @@
       <bool>false</bool>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="2" column="0">
-       <widget class="QLabel" name="mLabelYMin">
+      <item row="1" column="2">
+       <widget class="QLabel" name="mLabelXMax">
         <property name="text">
-         <string>Y Min.:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="mlabelXMin">
-        <property name="text">
-         <string>X Min.:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <widget class="QLineEdit" name="mLineEditYMax">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLineEdit" name="mLineEditXMax">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="mLabelYMax">
-        <property name="text">
-         <string>Y Max.:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="mLineEditXMin">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
+         <string>X Max.:</string>
         </property>
        </widget>
       </item>
@@ -127,23 +83,6 @@
        <widget class="QPushButton" name="buttonSetToCanvasExtent">
         <property name="text">
          <string>Set to canvas extent</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="mLineEditYMin">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="mLabelXMax">
-        <property name="text">
-         <string>X Max.:</string>
         </property>
        </widget>
       </item>
@@ -159,6 +98,39 @@
          <string>Edit the extent rectangle on the map canvas to change this setting</string>
         </property>
        </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QDoubleSpinBox" name="mSpinBoxXMax"/>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="mLabelYMax">
+        <property name="text">
+         <string>Y Max.:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="mSpinBoxXMin"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="mSpinBoxYMin"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="mlabelXMin">
+        <property name="text">
+         <string>X Min.:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="mLabelYMin">
+        <property name="text">
+         <string>Y Min.:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QDoubleSpinBox" name="mSpinBoxYMax"/>
       </item>
      </layout>
     </widget>

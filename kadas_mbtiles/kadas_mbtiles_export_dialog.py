@@ -10,7 +10,7 @@ from qgis.PyQt.QtWidgets import (
 )
 from qgis.PyQt.uic import loadUiType
 
-from qgis.core import Qgis, QgsProject
+from qgis.core import Qgis, QgsProject, QgsRectangle 
 
 from qgis.core import QgsApplication, QgsProcessingContext, QgsProcessingFeedback
 
@@ -27,6 +27,9 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         QDialog.__init__(self, parent)
         self.setupUi(self)
 
+        # To avoid recursive update spinbox valueChanged and rect rectChanged
+        self.blockRectChangedSignal = 0
+
         self.iface = iface
         # To fit the dialog to content
         self.resize(0, 0)
@@ -34,6 +37,16 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(False)
 
         self.buttonSelectFile.clicked.connect(self.__selectOutputFile)
+
+        self.mSpinBoxXMin.setMaximum(float('inf'))
+        self.mSpinBoxYMin.setMaximum(float('inf'))
+        self.mSpinBoxXMax.setMaximum(float('inf'))
+        self.mSpinBoxYMax.setMaximum(float('inf'))
+
+        self.mSpinBoxXMin.setMinimum(-float('inf'))
+        self.mSpinBoxYMin.setMinimum(-float('inf'))
+        self.mSpinBoxXMax.setMinimum(-float('inf'))
+        self.mSpinBoxYMax.setMinimum(-float('inf'))
 
         self.mRectTool = KadasMapToolSelectRect(iface.mapCanvas())
         self.mRectTool.rectChanged.connect(self.__extentChanged)
@@ -46,6 +59,12 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         self.buttonSetToCanvasExtent.clicked.connect(
             lambda: self.mRectTool.setRect(self.iface.mapCanvas().extent())
         )
+
+
+        self.mSpinBoxXMin.valueChanged.connect(lambda v: self.__spinBoxChanged())
+        self.mSpinBoxYMin.valueChanged.connect(lambda v: self.__spinBoxChanged())
+        self.mSpinBoxXMax.valueChanged.connect(lambda v: self.__spinBoxChanged())
+        self.mSpinBoxYMax.valueChanged.connect(lambda v: self.__spinBoxChanged())
 
     def outputFile(self):
         return self.lineEditOutputFile.text()
@@ -174,23 +193,35 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         self.iface.mapCanvas().unsetMapTool(self.mRectTool)
         self.mRectTool = None
 
+    
+    def __spinBoxChanged(self):
+        self.blockRectChangedSignal += 1
+
+        xmin = self.mSpinBoxXMin.value()
+        ymin = self.mSpinBoxYMin.value()
+        xmax = self.mSpinBoxXMax.value()
+        ymax = self.mSpinBoxYMax.value()
+        self.mRectTool.setRect(
+            QgsRectangle(xmin, ymin, xmax, ymax)
+        )
+
+        self.blockRectChangedSignal -= 1
+
     def __extentChanged(self, extent):
+
+        if self.blockRectChangedSignal > 0:
+            return
+        
         if extent.isNull():
-            self.mLineEditXMin.setText("")
-            self.mLineEditYMin.setText("")
-            self.mLineEditXMax.setText("")
-            self.mLineEditYMax.setText("")
+            self.mSpinBoxXMin.setValue(0)
+            self.mSpinBoxYMin.setValue(0)
+            self.mSpinBoxXMax.setValue(0)
+            self.mSpinBoxYMax.setValue(0)
         else:
-            decs = 0
-            if (
-                self.iface.mapCanvas().mapSettings().mapUnits()
-                == Qgis.DistanceUnit.Degrees
-            ):
-                decs = 3
-            self.mLineEditXMin.setText(f"{extent.xMinimum(): {decs}f}")
-            self.mLineEditYMin.setText(f"{extent.yMinimum(): {decs}f}")
-            self.mLineEditXMax.setText(f"{extent.xMaximum(): {decs}f}")
-            self.mLineEditYMax.setText(f"{extent.yMaximum(): {decs}f}")
+            self.mSpinBoxXMin.setValue(extent.xMinimum())
+            self.mSpinBoxYMin.setValue(extent.yMinimum())
+            self.mSpinBoxXMax.setValue(extent.xMaximum())
+            self.mSpinBoxYMax.setValue(extent.yMaximum())
 
     def extent(self):
         return self.mRectTool.rect()
