@@ -1,8 +1,6 @@
 import os
-from pathlib import Path
 
 from qgis.PyQt.QtCore import QSettings, Qt, QFile
-from qgis.PyQt.QtGui import QPixmap, QColor
 from qgis.PyQt.QtWidgets import (
     QDialog,
     QFileDialog,
@@ -12,12 +10,9 @@ from qgis.PyQt.QtWidgets import (
 )
 from qgis.PyQt.uic import loadUiType
 
-from qgis.gui import QgsExtentWidget
-
-from qgis.core import Qgis, QgsRectangle, QgsProject
+from qgis.core import Qgis, QgsProject
 
 from qgis.core import QgsApplication, QgsProcessingContext, QgsProcessingFeedback
-from qgis.analysis import QgsNativeAlgorithms
 
 from kadas.kadasgui import KadasMapToolSelectRect
 

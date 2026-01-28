@@ -4,9 +4,7 @@ from qgis.PyQt.QtCore import *
 from qgis.PyQt.QtGui import *
 from qgis.PyQt.QtWidgets import *
 import os
-import sys
 
-from . import resources
 from .kadas_mbtiles_export_dialog import KadasMBTilesExportDialog
 from qgis.gui import *
 from kadas.kadasgui import *
