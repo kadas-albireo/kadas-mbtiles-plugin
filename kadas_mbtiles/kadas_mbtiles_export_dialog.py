@@ -34,7 +34,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         # To fit the dialog to content
         self.resize(0, 0)
 
-        self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(False)
+        self.buttonBox.button(QDialogButtonBox.StandardButton.Ok).setEnabled(False)
 
         self.buttonSelectFile.clicked.connect(self.__selectOutputFile)
 
@@ -95,7 +95,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             lastDir,
             self.tr("MBTiles files (*.mbtiles *.MBTILES)"),
             "",
-            QFileDialog.DontConfirmOverwrite,
+            QFileDialog.Option.DontConfirmOverwrite,
         )[0]
         if not filename:
             return
@@ -106,7 +106,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         QSettings().setValue("/UI/lastImportExportDir", os.path.dirname(filename))
         self.lineEditOutputFile.setText(filename)
 
-        self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(filename is not None)
+        self.buttonBox.button(QDialogButtonBox.StandardButton.Ok).setEnabled(filename is not None)
         # self.__updateLocalLayerList()
 
     def accept(self):
@@ -124,10 +124,10 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
                 self.tr(
                     f"The file '{self.outputFile()}' already exists. Do you want to overwrite it?"
                 ),
-                QMessageBox.Cancel | QMessageBox.Yes,
-                QMessageBox.Cancel,
+                QMessageBox.StandardButton.Cancel | QMessageBox.StandardButton.Yes,
+                QMessageBox.StandardButton.Cancel,
             )
-            if ret != QMessageBox.Yes:
+            if ret != QMessageBox.StandardButton.Yes:
                 # Cancel export
                 return
 
@@ -157,9 +157,9 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
         progressDialog = QProgressDialog(
             "Exporting to MBTiles...", "Cancel", 0, 100, self
         )
-        progressDialog.setWindowModality(Qt.WindowModal)
+        progressDialog.setWindowModality(Qt.WindowModality.WindowModal)
 
-        QgsApplication.setOverrideCursor(Qt.WaitCursor)
+        QgsApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
         _feedback.progressChanged.connect(
             lambda progress: progressDialog.setValue(int(progress))

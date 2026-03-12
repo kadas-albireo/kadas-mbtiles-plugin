@@ -40,7 +40,7 @@ class KadasMBtiles(QObject):
     def initGui(self):
 
         self.exportShortcut = QShortcut(
-            QKeySequence(Qt.CTRL + Qt.Key_E, Qt.CTRL + Qt.Key_M),
+            QKeySequence(Qt.Modifier.CTRL + Qt.Key.Key_E, Qt.Modifier.CTRL + Qt.Key.Key_M),
             self.iface.mainWindow(),
         )
         self.exportShortcut.activated.connect(self.__exportMbtiles)
