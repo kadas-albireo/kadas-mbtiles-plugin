@@ -1,7 +1,7 @@
 [general]
 name=KADAS MBTiles
 qgisMinimumVersion=3.0
-qgisMaximumVersion=3.99
+qgisMaximumVersion=4.99
 description=KADAS MBTiles plugin
 about=KADAS MBTiles plugin.
 version=1.0
