@@ -6,13 +6,13 @@ from qgis.PyQt.QtGui import QAction, QIcon, QKeySequence
 from qgis.PyQt.QtWidgets import QShortcut
 import os
 
-from . import resources
 from .kadas_mbtiles_export_dialog import KadasMBTilesExportDialog
 from kadas.kadasgui import KadasPluginInterface
 
 from qgis.core import QgsApplication
 from qgis.analysis import QgsNativeAlgorithms
 
+PLUGIN_DIR = os.path.dirname(__file__)
 
 class KadasMBtiles(QObject):
 
@@ -27,7 +27,7 @@ class KadasMBtiles(QObject):
         if QSettings().value("locale/userLocale"):
             self.locale = QSettings().value("locale/userLocale")[0:2]
             locale_path = os.path.join(
-                os.path.dirname(__file__),
+                PLUGIN_DIR,
                 "i18n",
                 "kadas_mbtiles_{}.qm".format(self.locale),
             )
@@ -45,7 +45,7 @@ class KadasMBtiles(QObject):
         )
         self.exportShortcut.activated.connect(self.__exportMbtiles)
         self.exportAction = QAction(
-            QIcon(":/plugins/KADASMbtiles/icons/mbtiles_export.png"),
+            QIcon( os.path.join(PLUGIN_DIR, "icons", "mbtiles_export.png") ),
             self.tr("Export MBTiles"),
         )
         self.exportAction.triggered.connect(self.__exportMbtiles)
