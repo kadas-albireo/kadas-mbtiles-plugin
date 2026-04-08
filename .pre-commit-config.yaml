@@ -1,0 +1,36 @@
+repos:
+- repo: https://github.com/PyCQA/autoflake
+  rev: v2.3.3
+  hooks:
+  - id: autoflake
+    files: ^share/python/plugins/
+    args: [--in-place, --remove-all-unused-imports, --remove-unused-variables]
+
+- repo: https://github.com/PyCQA/isort
+  rev: 8.0.1
+  hooks:
+  - id: isort
+    files: ^share/python/plugins/
+    args: [--profile, black, --line-length, "99"]
+
+- repo: https://github.com/psf/black
+  rev: 26.3.1
+  hooks:
+  - id: black
+    files: ^share/python/plugins/
+    args: [--line-length, "99"]
+
+- repo: https://github.com/PyCQA/flake8
+  rev: 7.3.0
+  hooks:
+  - id: flake8
+    files: ^share/python/plugins/
+    args: [
+      "--max-line-length=115",
+      # ignore long comments (E501), as long lines are formatted by black
+      "--ignore=E501,E203,W503",
+    ]
+
+ci:
+  autofix_prs: true
+  autoupdate_schedule: quarterly
