@@ -72,10 +72,6 @@ class KadasMBtiles(QObject):
         self.KadasMBTilesExportDialog = KadasMBTilesExportDialog(
             self.iface.mainWindow(), self.iface
         )
-        self.KadasMBTilesExportDialog.show()
-        self.KadasMBTilesExportDialog.finished.connect(self.__dialogFinished)
-
-    def __dialogFinished(self, result):
-        self.KadasMBTilesExportDialog.finished.disconnect()
+        self.KadasMBTilesExportDialog.exec()
         self.KadasMBTilesExportDialog.clear()
         self.KadasMBTilesExportDialog = None
