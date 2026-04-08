@@ -140,7 +140,7 @@ class KadasMBTilesExportDialog(QDialog, WidgetUi):
             "ANTIALIAS": self.antialiasing(),
             "TILE_FORMAT": 0,  # Always  PNG - 0
             #    'QUALITY':75,
-            "METATILESIZE": self.metatileSize,
+            "METATILESIZE": self.metatileSize(),
             "OUTPUT_FILE": self.outputFile(),  # 'C:/Users/Valentin/Documents/out_qgis.mbtiles'
         }
 
