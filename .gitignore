@@ -70,3 +70,4 @@ ssh_config
 
 # Thumbs db
 *Thumbs*
+.DS_Store
